@@ -22,7 +22,7 @@ function genDate() {
 genDate();
 
 
-app.post("/api/create-news", (req, res) => {
+app.post("/api/create/news", (req, res) => {
   const { author, title, content, description, sources, image } = req.body;
   // console.log(req.body)
 
