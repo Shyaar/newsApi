@@ -21,15 +21,8 @@ function genDate() {
 
 genDate();
 
-// try {
-//   fs.existsSync("news.json");
-//   // console.log("exist");
-// } catch (err) {
-//   console.log("not exist")
-//   throw(err);
-// }
 
-app.post("/api/create", (req, res) => {
+app.post("/api/create-news", (req, res) => {
   const { author, title, content, description, sources, image } = req.body;
   // console.log(req.body)
 
