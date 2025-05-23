@@ -58,7 +58,7 @@ app.post("/api/create", (req, res) => {
     image: image,
     createdDate: genDate(),
     updated: genDate(),
-    isDeleted: false
+    isDeleted: false,
   };
 
   news.push(newNews);
@@ -78,7 +78,7 @@ app.get("/api/news", (req, res) => {
     });
   }
 
-  const available = news.filter(news=>news.isDeleted === false)
+  const available = news.filter((news) => news.isDeleted === false);
   res.status(200).send({
     message: "All News retrieved successfully",
     data: available,
@@ -87,7 +87,13 @@ app.get("/api/news", (req, res) => {
 
 app.get("/api/news/:id", (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
+  if (news.length == 0) {
+    return res.status(404).send({
+      message: "No news available",
+    });
+  }
+
   const found = news.find((news) => news.id == id);
   console.log(found);
   res.status(200).send({
@@ -98,10 +104,16 @@ app.get("/api/news/:id", (req, res) => {
 
 app.delete("/api/news/:id", (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  
+  if (news.length == 0) {
+    return res.status(404).send({
+      message: "No news available",
+    });
+  }
+  
   const found = news.find((news) => news.id == id);
   const indexOf = news.indexOf(found);
-  news[indexOf].isDeleted = true
+  news[indexOf].isDeleted = true;
   // news = news.filter((news) => news.id !== found.id);
   // console.log(found);
 
