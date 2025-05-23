@@ -21,7 +21,6 @@ function genDate() {
 
 genDate();
 
-
 app.post("/api/create/news", (req, res) => {
   const { author, title, content, description, sources, image } = req.body;
   // console.log(req.body)
@@ -175,8 +174,14 @@ app.get("/api/get-by-author", (req, res) => {
   const filteredNews = news.filter((news) => news.author == author);
   console.log(filteredNews);
 
-  res.status(200).send({
-    message: `News written by this author: ${author}`,
-    data: filteredNews,
+  if (filteredNews) {
+    res.status(200).send({
+      message: `News written by this author: ${author}`,
+      data: filteredNews,
+    });
+  }
+
+  res.status(404).send({
+    message: `${author} Not found`
   });
 });
