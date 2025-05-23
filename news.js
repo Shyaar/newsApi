@@ -104,13 +104,13 @@ app.get("/api/news/:id", (req, res) => {
 
 app.delete("/api/news/:id", (req, res) => {
   const { id } = req.params;
-  
+
   if (news.length == 0) {
     return res.status(404).send({
       message: "No news available",
     });
   }
-  
+
   const found = news.find((news) => news.id == id);
   const indexOf = news.indexOf(found);
   news[indexOf].isDeleted = true;
@@ -173,8 +173,11 @@ app.patch("/api/edit/:id", (req, res) => {
 
 app.get("/api/get-by-author", (req, res) => {
   const { author } = req.query;
-
-  console.log(author);
+  if (news.length == 0) {
+    return res.status(404).send({
+      message: "No news available",
+    });
+  }
 
   const filteredNews = news.filter((news) => news.author == author);
   console.log(filteredNews);
